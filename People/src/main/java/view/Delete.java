@@ -91,6 +91,7 @@ public class Delete extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(delete, gridBagConstraints);
 
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));

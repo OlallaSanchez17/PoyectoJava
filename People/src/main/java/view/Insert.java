@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
@@ -29,9 +30,14 @@ public class Insert extends javax.swing.JDialog {
     public Insert(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        DropPhotoListener d = new DropPhotoListener(photo, this);
-        DropTarget dropTarget = new DropTarget(photo, d);
+        DropPhotoListener b = new DropPhotoListener(photo, this);
+        DropTarget dropTarget = new DropTarget(photo, b);
         insert.setEnabled(false);
+        a = dateOfBirth.getButton();
+        a.setText("Select your date");
+        Dimension c = new Dimension(250,55);
+        a.setPreferredSize(c);
+        
     }
 
     public JButton getReset() {
@@ -68,6 +74,7 @@ public class Insert extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        a = new javax.swing.JButton();
         insert = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
@@ -78,6 +85,14 @@ public class Insert extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
+
+        a.setText("Select your date");
+        a.setPreferredSize(new java.awt.Dimension(250, 55));
+        a.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
@@ -242,6 +257,11 @@ public class Insert extends javax.swing.JDialog {
         dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
+        dateOfBirth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateOfBirthActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -326,7 +346,16 @@ public class Insert extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nifActionPerformed
 
+    private void dateOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthActionPerformed
+        
+    }//GEN-LAST:event_dateOfBirthActionPerformed
+
+    private void aActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aActionPerformed
+
+    }//GEN-LAST:event_aActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton a;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
