@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
@@ -33,6 +34,10 @@ public class Update extends javax.swing.JDialog {
         DropTarget dropTarget = new DropTarget(photo, d);
         read.setVisible(false);
         update.setEnabled(false);
+        a = dateOfBirth.getButton();
+        a.setText("Select your date");
+        Dimension c = new Dimension(250,55);
+        a.setPreferredSize(c);
     }
 
     public JButton getUpdate() {
@@ -73,6 +78,7 @@ public class Update extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        a = new javax.swing.JButton();
         update = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         nif = new javax.swing.JTextField();
@@ -84,6 +90,8 @@ public class Update extends javax.swing.JDialog {
         reset = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         read = new javax.swing.JButton();
+
+        a.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
@@ -116,6 +124,7 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
@@ -141,7 +150,7 @@ public class Update extends javax.swing.JDialog {
 
         photo.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
         photo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        photo.setText("<html><center>PHOTO</center></br><br><center> <i>Supported formats: PNG.</i></center></br><br><center><i>Max. size 64KB</i></center></html>");
+        photo.setText("<html><center>Browse your image here</center></br><br><center>PHOTO</center></br><br><center> <i>Supported format: PNG.</i></center></br><br><center><i>Max. size 64KB</i></center></html>");
         photo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         photo.setEnabled(false);
         photo.setMaximumSize(new java.awt.Dimension(150, 135));
@@ -339,6 +348,7 @@ public class Update extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton a;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
