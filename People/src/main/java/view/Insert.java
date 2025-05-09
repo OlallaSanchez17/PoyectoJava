@@ -109,7 +109,7 @@ public class Insert extends javax.swing.JDialog {
                 insertActionPerformed(evt);
             }
         });
-        getContentPane().add(insert, new java.awt.GridBagConstraints());
+
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Name");
@@ -354,8 +354,7 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_aActionPerformed
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-        
- JOptionPane.showMessageDialog(this," Person inserted succesfuly "); 
+
     }//GEN-LAST:event_insertActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
