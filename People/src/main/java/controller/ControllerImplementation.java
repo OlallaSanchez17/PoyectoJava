@@ -37,6 +37,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
+import utils.DataValidation.StorageConstants;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -115,31 +116,35 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-    private void handleDataStorageSelection() {
-        String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
-        dSS.dispose();
-        switch (daoSelected) {
-            case "ArrayList":
-                dao = new DAOArrayList();
-                break;
-            case "HashMap":
-                dao = new DAOHashMap();
-                break;
-            case "File":
-                setupFileStorage();
-                break;
-            case "File (Serialization)":
-                setupFileSerialization();
-                break;
-            case "SQL - Database":
-                setupSQLDatabase();
-                break;
-            case "JPA - Database":
-                setupJPADatabase();
-                break;
-        }
-        setupMenu();
+private void handleDataStorageSelection() {
+    String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
+    dSS.dispose();
+    
+    switch (daoSelected) {
+        case StorageConstants.ARRAY_LIST:
+            dao = new DAOArrayList();
+            break;
+        case StorageConstants.HASH_MAP:
+            dao = new DAOHashMap();
+            break;
+        case StorageConstants.FILE:
+            setupFileStorage();
+            break;
+        case StorageConstants.FILE_SERIALIZATION:
+            setupFileSerialization();
+            break;
+        case StorageConstants.SQL_DATABASE:
+            setupSQLDatabase();
+            break;
+        case StorageConstants.JPA_DATABASE:
+            setupJPADatabase();
+            break;
+        default:
+            System.err.println("Opción de almacenamiento no reconocida: " + daoSelected);
+            break;
     }
+    setupMenu();
+}
 
     private void setupFileStorage() {
         File folderPath = new File(Routes.FILE.getFolderPath());
