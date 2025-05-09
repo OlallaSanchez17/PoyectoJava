@@ -529,7 +529,7 @@ public void deleteAll() {
                 || ex instanceof ParseException || ex instanceof ClassNotFoundException
                 || ex instanceof SQLException || ex instanceof PersistenceException) {
             JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
+            System.exit(0);//
         }
     }
 }
