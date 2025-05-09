@@ -359,7 +359,8 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_aActionPerformed
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-
+        JOptionPane.showMessageDialog(this, "Person inaerted successfully!");
+        
     }//GEN-LAST:event_insertActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
