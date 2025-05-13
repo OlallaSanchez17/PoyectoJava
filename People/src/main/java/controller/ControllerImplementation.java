@@ -116,35 +116,35 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-private void handleDataStorageSelection() {
-    String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
-    dSS.dispose();
-    
-    switch (daoSelected) {
-        case StorageConstants.ARRAY_LIST:
-            dao = new DAOArrayList();
-            break;
-        case StorageConstants.HASH_MAP:
-            dao = new DAOHashMap();
-            break;
-        case StorageConstants.FILE:
-            setupFileStorage();
-            break;
-        case StorageConstants.FILE_SERIALIZATION:
-            setupFileSerialization();
-            break;
-        case StorageConstants.SQL_DATABASE:
-            setupSQLDatabase();
-            break;
-        case StorageConstants.JPA_DATABASE:
-            setupJPADatabase();
-            break;
-        default:
-            System.err.println("Opción de almacenamiento no reconocida: " + daoSelected);
-            break;
+    private void handleDataStorageSelection() {
+        String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
+        dSS.dispose();
+
+        switch (daoSelected) {
+            case StorageConstants.ARRAY_LIST:
+                dao = new DAOArrayList();
+                break;
+            case StorageConstants.HASH_MAP:
+                dao = new DAOHashMap();
+                break;
+            case StorageConstants.FILE:
+                setupFileStorage();
+                break;
+            case StorageConstants.FILE_SERIALIZATION:
+                setupFileSerialization();
+                break;
+            case StorageConstants.SQL_DATABASE:
+                setupSQLDatabase();
+                break;
+            case StorageConstants.JPA_DATABASE:
+                setupJPADatabase();
+                break;
+            default:
+                System.err.println("Opción de almacenamiento no reconocida: " + daoSelected);
+                break;
+        }
+        setupMenu();
     }
-    setupMenu();
-}
 
     private void setupFileStorage() {
         File folderPath = new File(Routes.FILE.getFolderPath());
@@ -363,21 +363,21 @@ private void handleDataStorageSelection() {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
-        menu,
-        "Are you sure you want to delete all registered people?", 
-        "Delete All - People v1.1.0",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,
-        options,
-        options[1] // Default selection is "No"
-    );
+                menu,
+                "Are you sure you want to delete all registered people?",
+                "Delete All - People v1.1.0",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1] // Default selection is "No"
+        );
 
         if (answer == 0) {
             deleteAll();
         }
     }
-    
+
     /**
      * This function inserts the Person object with the requested NIF, if it
      * doesn't exist. If there is any access problem with the storage device,
@@ -443,7 +443,11 @@ private void handleDataStorageSelection() {
     public void delete(Person p) {
         try {
             if (dao.read(p) != null) {
-                dao.delete(p);
+                int mensage = JOptionPane.showConfirmDialog(delete, "¿Estás seguro de que quieres eliminar a esta persona?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if (mensage == JOptionPane.YES_OPTION) {
+                    dao.delete(p);
+                    JOptionPane.showMessageDialog(delete, "Persona borrado", "Delete", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
                 throw new PersonException(p.getNif() + " is not registered and can not "
                         + "be DELETED");
@@ -454,11 +458,11 @@ private void handleDataStorageSelection() {
             if (ex instanceof FileNotFoundException || ex instanceof IOException
                     || ex instanceof ParseException || ex instanceof ClassNotFoundException
                     || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(read, ex.getMessage() + ex.getClass() + " Closing application.", "Insert - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(delete, ex.getMessage() + ex.getClass() + " Closing application.", "Insert - People v1.1.0", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
             if (ex instanceof PersonException) {
-                JOptionPane.showMessageDialog(read, ex.getMessage(), "Delete - People v1.1.0", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(delete, ex.getMessage(), "Delete - People v1.1898.0", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
@@ -531,5 +535,7 @@ private void handleDataStorageSelection() {
             }
         }
     }
-
 }
+    
+    
+    
