@@ -14,7 +14,7 @@ public class ReadAll extends javax.swing.JDialog {
     super(parent, modal);
     initComponents();
 
-    // Centrar texto en las columnas
+ 
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
     centerRenderer.setHorizontalAlignment((int) JTable.CENTER_ALIGNMENT);
     table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -23,7 +23,7 @@ public class ReadAll extends javax.swing.JDialog {
     table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
     setLocationRelativeTo(null);
 
-    // 👉 Acción para el botón "exportar"
+ 
     exportar.addActionListener(e -> {
         javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
         fileChooser.setDialogTitle("Guardar como...");
@@ -36,8 +36,7 @@ public class ReadAll extends javax.swing.JDialog {
             }
 
             try {
-                // Asegúrate de importar esta clase correctamente
-                // import model.dao.TableExporter;
+
                 model.dao.Exportar.exportTableToCSV(table, filePath);
                 javax.swing.JOptionPane.showMessageDialog(this, "Exportación completada:\n" + filePath);
             } catch (java.io.IOException ex) {

@@ -13,14 +13,14 @@ public class Exportar {
         TableModel model = table.getModel();
         FileWriter csv = new FileWriter(filePath);
 
-        // Escribe los nombres de columna
+     
         for (int i = 0; i < model.getColumnCount(); i++) {
             csv.write(model.getColumnName(i));
             if (i < model.getColumnCount() - 1) csv.write(",");
         }
         csv.write("\n");
 
-        // Escribe los datos fila por fila
+     
         for (int i = 0; i < model.getRowCount(); i++) {
             for (int j = 0; j < model.getColumnCount(); j++) {
                 Object value = model.getValueAt(i, j);
