@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -10,33 +11,20 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class ReadAll extends javax.swing.JDialog {
 
-    public ReadAll(java.awt.Frame parent, boolean modal) {
-12-agregar-número-de-teléfono-a-persona-12
-        super(parent, modal);
-        initComponents();
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment((int)JTable.CENTER_ALIGNMENT);
-        table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
-        table.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
-        table.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
-        table.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
-        table.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
-        setLocationRelativeTo(null);
-    }
-
+public ReadAll(java.awt.Frame parent, boolean modal) {
     super(parent, modal);
     initComponents();
-
+    
  
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment((int) JTable.CENTER_ALIGNMENT);
-    table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-    table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-    table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-    table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+    for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+        table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+    }
+    
     setLocationRelativeTo(null);
-
- 
+    
+    
     exportar.addActionListener(e -> {
         javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
         fileChooser.setDialogTitle("Guardar como...");
@@ -49,16 +37,19 @@ public class ReadAll extends javax.swing.JDialog {
             }
 
             try {
-
                 model.dao.Exportar.exportTableToCSV(table, filePath);
-                javax.swing.JOptionPane.showMessageDialog(this, "Exportación completada:\n" + filePath);
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Exportación completada:\n" + filePath);
             } catch (java.io.IOException ex) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Error al exportar:\n" + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Error al exportar:\n" + ex.getMessage(), 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
             }
         }
     });
 }
- main
+
 
     public JTable getTable() {
         return table;
