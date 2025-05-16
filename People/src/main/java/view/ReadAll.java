@@ -11,6 +11,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class ReadAll extends javax.swing.JDialog {
 
     public ReadAll(java.awt.Frame parent, boolean modal) {
+12-agregar-número-de-teléfono-a-persona-12
+        super(parent, modal);
+        initComponents();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment((int)JTable.CENTER_ALIGNMENT);
+        table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        table.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+        table.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+        table.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+        table.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
+        setLocationRelativeTo(null);
+    }
+
     super(parent, modal);
     initComponents();
 
@@ -45,6 +58,7 @@ public class ReadAll extends javax.swing.JDialog {
         }
     });
 }
+ main
 
     public JTable getTable() {
         return table;
@@ -75,14 +89,14 @@ public class ReadAll extends javax.swing.JDialog {
 
             },
             new String [] {
-                "NIF", "Name", "Date of Birth", "Photo"
+                "NIF", "Name", "Phone", "Date of Birth", "Photo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
