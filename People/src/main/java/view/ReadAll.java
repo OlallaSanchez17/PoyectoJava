@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class ReadAll extends javax.swing.JDialog {
 
     public ReadAll(java.awt.Frame parent, boolean modal) {
+12-agregar-número-de-teléfono-a-persona-12
         super(parent, modal);
         initComponents();
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -22,6 +23,42 @@ public class ReadAll extends javax.swing.JDialog {
         table.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
         setLocationRelativeTo(null);
     }
+
+    super(parent, modal);
+    initComponents();
+
+ 
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment((int) JTable.CENTER_ALIGNMENT);
+    table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+    table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+    table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+    table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+    setLocationRelativeTo(null);
+
+ 
+    exportar.addActionListener(e -> {
+        javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+        fileChooser.setDialogTitle("Guardar como...");
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if (!filePath.endsWith(".csv")) {
+                filePath += ".csv";
+            }
+
+            try {
+
+                model.dao.Exportar.exportTableToCSV(table, filePath);
+                javax.swing.JOptionPane.showMessageDialog(this, "Exportación completada:\n" + filePath);
+            } catch (java.io.IOException ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al exportar:\n" + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    });
+}
+ main
 
     public JTable getTable() {
         return table;
@@ -41,6 +78,7 @@ public class ReadAll extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        exportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Read All - People v1.1.0");
@@ -87,16 +125,25 @@ public class ReadAll extends javax.swing.JDialog {
         jLabel2.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
         getContentPane().add(jLabel2, gridBagConstraints);
+
+        exportar.setText("exportar");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(exportar, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exportar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
