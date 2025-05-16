@@ -13,34 +13,38 @@ class PersonTest {
     private Person personWithFullData;
     private String nif = "12345678X";
     private String name = "John Doe";
+    private String phone = "888888888";
     private Date dateOfBirth = new Date();
     private ImageIcon photo = new ImageIcon();
 
     @BeforeEach
     void setUp() {
         person = new Person(nif);
-        personWithFullData = new Person(name, nif, dateOfBirth, photo);
+        personWithFullData = new Person(nif, name, phone, dateOfBirth, photo);
     }
 
     @Test
     void testConstructorNifOnly() {
         assertEquals(nif, person.getNif());
         assertNull(person.getName());
+        assertNull(person.getPhone());
         assertNull(person.getDateOfBirth());
         assertNull(person.getPhoto());
     }
 
     @Test
     void testConstructorNameAndNif() {
-        Person personWithNameAndNif = new Person(name, nif);
-        assertEquals(name, personWithNameAndNif.getName());
+        Person personWithNameAndNif = new Person(nif, name, phone);
         assertEquals(nif, personWithNameAndNif.getNif());
+        assertEquals(name, personWithNameAndNif.getName());
+        assertEquals(phone, personWithNameAndNif.getPhone());
     }
 
     @Test
     void testConstructorFullData() {
-        assertEquals(name, personWithFullData.getName());
         assertEquals(nif, personWithFullData.getNif());
+        assertEquals(name, personWithFullData.getName());
+        assertEquals(phone, personWithFullData.getPhone());
         assertEquals(dateOfBirth, personWithFullData.getDateOfBirth());
         assertEquals(photo, personWithFullData.getPhoto());
     }
@@ -49,6 +53,9 @@ class PersonTest {
     void testGettersAndSetters() {
         person.setName("Jane Doe");
         assertEquals("Jane Doe", person.getName());
+        
+        person.setPhone("888888888");
+        assertEquals("888888888", person.getPhone());
 
         Date newDateOfBirth = new Date(0);
         person.setDateOfBirth(newDateOfBirth);
@@ -94,8 +101,7 @@ class PersonTest {
 
     @Test
     void testToString() {
-        String expected = "Person {Name = " + name + ", NIF = " + nif
-                + ", DateOfBirth = " + dateOfBirth + ", Photo = true}";
+        String expected = "Person {NIF = " + nif + ", Name = " + name + ", Phone = " + phone + ", DateOfBirth = " + dateOfBirth + ", Photo = true}";
         assertEquals(expected, personWithFullData.toString());
     }
 }
