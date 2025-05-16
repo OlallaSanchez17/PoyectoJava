@@ -20,7 +20,6 @@ public class Person implements Serializable{
     @Id 
     private String nif;
     private String name;
-    private String phone;
     private Date dateOfBirth;
     @Transient
     private ImageIcon photo;
@@ -44,10 +43,9 @@ public class Person implements Serializable{
      * @author Fran Perez
      * @version 1.0
      */
-    public Person(String nif, String name, String phone) {
-        this.nif = nif;
+    public Person(String name, String nif) {
         this.name = name;
-        this.phone = phone;        
+        this.nif = nif;
     }
 
     /**
@@ -59,20 +57,11 @@ public class Person implements Serializable{
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String nif, String name, String phone, Date dateOfBirth, ImageIcon photo) {
-        this.nif = nif;
+    public Person(String name, String nif, Date dateOfBirth, ImageIcon photo) {
         this.name = name;      
-        this.phone = phone;
+        this.nif = nif;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     //Getters and Setters
