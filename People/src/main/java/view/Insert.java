@@ -326,7 +326,7 @@ public class Insert extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!name.getText().isEmpty() && !nif.isEditable()) {
+        if (!name.getText().isEmpty() && !nif.isEditable() && !phone.getText().isEmpty()) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -411,9 +411,12 @@ public class Insert extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Person inaerted successfully!");
         
     }//GEN-LAST:event_insertActionPerformed
-
+    
     private void phoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyReleased
-        
+        if (phone.getText().length() == 9) {
+            phone.setEditable(false);
+            showInsert();
+        }
     }//GEN-LAST:event_phoneKeyReleased
 
     private void phoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyTyped
@@ -433,6 +436,9 @@ public class Insert extends javax.swing.JDialog {
             phone.setEditable(false);
             showInsert();
         }
+10-implementar-la-funcionalidad-de-exportación-de-datos-de-personas-en-formato-csv-10
+
+  main
     }//GEN-LAST:event_phoneKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
