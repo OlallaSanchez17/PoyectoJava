@@ -14,13 +14,14 @@ class PersonTest {
     private String nif = "12345678X";
     private String name = "John Doe";
     private String phone = "888888888";
+    private String postalCode = "111111111";
     private Date dateOfBirth = new Date();
     private ImageIcon photo = new ImageIcon();
 
     @BeforeEach
     void setUp() {
         person = new Person(nif);
-        personWithFullData = new Person(nif, name, phone, dateOfBirth, photo);
+        personWithFullData = new Person(nif, name, phone, postalCode, dateOfBirth, photo);
     }
 
     @Test
@@ -28,6 +29,7 @@ class PersonTest {
         assertEquals(nif, person.getNif());
         assertNull(person.getName());
         assertNull(person.getPhone());
+        assertNull(person.getPostalCode());
         assertNull(person.getDateOfBirth());
         assertNull(person.getPhoto());
     }
@@ -38,6 +40,7 @@ class PersonTest {
         assertEquals(nif, personWithNameAndNif.getNif());
         assertEquals(name, personWithNameAndNif.getName());
         assertEquals(phone, personWithNameAndNif.getPhone());
+
     }
 
     @Test
@@ -45,6 +48,7 @@ class PersonTest {
         assertEquals(nif, personWithFullData.getNif());
         assertEquals(name, personWithFullData.getName());
         assertEquals(phone, personWithFullData.getPhone());
+        assertEquals(postalCode, personWithFullData.getPostalCode());
         assertEquals(dateOfBirth, personWithFullData.getDateOfBirth());
         assertEquals(photo, personWithFullData.getPhoto());
     }
@@ -56,6 +60,9 @@ class PersonTest {
         
         person.setPhone("888888888");
         assertEquals("888888888", person.getPhone());
+        
+        person.setPostalCode("999999999");
+        assertEquals("999999999", person.getPostalCode());
 
         Date newDateOfBirth = new Date(0);
         person.setDateOfBirth(newDateOfBirth);
@@ -101,7 +108,7 @@ class PersonTest {
 
     @Test
     void testToString() {
-        String expected = "Person {NIF = " + nif + ", Name = " + name + ", Phone = " + phone + ", DateOfBirth = " + dateOfBirth + ", Photo = true}";
+        String expected = "Person {NIF = " + nif + ", Name = " + name + ", Phone = " + phone + ", PostalCode = " + postalCode + ", DateOfBirth = " + dateOfBirth + ", Photo = true}";
         assertEquals(expected, personWithFullData.toString());
     }
 }

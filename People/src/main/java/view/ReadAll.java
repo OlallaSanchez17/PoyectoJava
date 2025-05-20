@@ -80,14 +80,14 @@ public ReadAll(java.awt.Frame parent, boolean modal) {
 
             },
             new String [] {
-                "NIF", "Name", "Phone", "Date of Birth", "Photo"
+                "NIF", "Name", "Phone", "Date of Birth", "Photo", "Postal Code"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {

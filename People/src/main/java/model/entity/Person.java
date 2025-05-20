@@ -21,6 +21,7 @@ public class Person implements Serializable{
     private String nif;
     private String name;
     private String phone;
+    private String postalCode;
     private Date dateOfBirth;
     @Transient
     private ImageIcon photo;
@@ -59,10 +60,11 @@ public class Person implements Serializable{
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String nif, String name, String phone, Date dateOfBirth, ImageIcon photo) {
+    public Person(String nif, String name, String phone, String postalCode, Date dateOfBirth, ImageIcon photo) {
         this.nif = nif;
         this.name = name;      
         this.phone = phone;
+        this.postalCode = postalCode;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -115,6 +117,16 @@ public class Person implements Serializable{
     public void setPhotoOnlyJPA(byte[] photoOnlyJPA) {
         this.photoOnlyJPA = photoOnlyJPA;
     }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+    
+    
         
     /**
      * Function used to compare two Personas. There cannot be two or more people
@@ -157,7 +169,7 @@ public class Person implements Serializable{
      */
     @Override
     public String toString() {
-        return "Person {" + "Name = " + name + ", NIF = " + nif
+        return "Person {" + "Name = " + name + ", NIF = " + nif + ", postalCode = " + postalCode
                 + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo!=null) + "}";
     }
 
