@@ -289,6 +289,9 @@ public class Insert extends javax.swing.JDialog {
             }
         });
         phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phoneKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 phoneKeyReleased(evt);
             }
@@ -323,7 +326,7 @@ public class Insert extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!name.getText().isEmpty() && !nif.isEditable()) {
+        if (!name.getText().isEmpty() && !nif.isEditable() && !phone.getText().isEmpty()) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -332,8 +335,10 @@ public class Insert extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
+        phone.setEditable(true);
         nif.setText("");
         name.setText("");
+        phone.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -406,9 +411,12 @@ public class Insert extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Person inaerted successfully!");
         
     }//GEN-LAST:event_insertActionPerformed
-
+    
     private void phoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyReleased
-        
+        if (phone.getText().length() == 9) {
+            phone.setEditable(false);
+            showInsert();
+        }
     }//GEN-LAST:event_phoneKeyReleased
 
     private void phoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyTyped
@@ -421,6 +429,15 @@ public class Insert extends javax.swing.JDialog {
     private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_phoneActionPerformed
+
+    private void phoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyPressed
+        if (phone.getText().length() == 9) {
+            evt.consume();
+            phone.setEditable(false);
+            showInsert();
+        }
+         
+    }//GEN-LAST:event_phoneKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton a;
