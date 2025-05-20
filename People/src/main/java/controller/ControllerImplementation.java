@@ -189,6 +189,7 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
                         + "phone varchar(50), "
+                        + "postalCode varchar(9),"
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -239,6 +240,9 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
+        if (insert.getPostalCode() != null) {
+            p.setPostalCode(insert.getPostalCode().getText());
+        }
         insert(p);
         insert.getReset().doClick();
     }
@@ -255,6 +259,7 @@ public class ControllerImplementation implements IController, ActionListener {
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
             read.getPhone().setText(pNew.getPhone());
+            read.getPostalCode().setText(pNew.getPostalCode());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -305,6 +310,8 @@ public class ControllerImplementation implements IController, ActionListener {
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
                 update.getPhone().setText(pNew.getPhone());
+                update.getPostalCode().setText(pNew.getPostalCode());
+               
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -326,6 +333,7 @@ public class ControllerImplementation implements IController, ActionListener {
     public void handleUpdatePerson() {
         if (update != null) {
             Person p = new Person(update.getNif().getText(), update.getNam().getText(), update.getPhone().getText());
+                p.setPostalCode(update.getPostalCode().getText());
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
@@ -345,10 +353,15 @@ public class ControllerImplementation implements IController, ActionListener {
             readAll = new ReadAll(menu, true);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
             for (int i = 0; i < s.size(); i++) {
+                System.out.println(s.size());
                 model.addRow(new Object[i]);
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getPhone(), i, 2);
+               
+        
+
+                
                 if (s.get(i).getDateOfBirth() != null) {
                     model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
                 } else {
@@ -359,6 +372,8 @@ public class ControllerImplementation implements IController, ActionListener {
                 } else {
                     model.setValueAt("no", i, 4);
                 }
+                
+                 model.setValueAt(s.get(i).getPostalCode(), i, 5);
             }
             readAll.setVisible(true);
         }
@@ -527,22 +542,19 @@ public class ControllerImplementation implements IController, ActionListener {
      * This function deletes all the people registered. If there is any access
      * problem with the storage device, the program stops.
      */
-@Override
-public void deleteAll() {
-    try {
-        dao.deleteAll();
-        JOptionPane.showMessageDialog(menu, "All persons have been deleted successfully", 
-            "Delete All - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
-    } catch (Exception ex) {
-        if (ex instanceof FileNotFoundException || ex instanceof IOException
-                || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                || ex instanceof SQLException || ex instanceof PersistenceException) {
-            JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", 
-                "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
+    @Override
+    public void deleteAll() {
+        try {
+            dao.deleteAll();
+        } catch (Exception ex) {
+            if (ex instanceof FileNotFoundException || ex instanceof IOException
+                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
+                    || ex instanceof SQLException || ex instanceof PersistenceException) {
+                JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
         }
     }
-}
 }
     
     

@@ -29,6 +29,10 @@ class DataValidationTest {
         assertEquals("12345678Z", DataValidation.calculateNifLetter("12345678"));
         assertEquals("87654321X", DataValidation.calculateNifLetter("87654321"));
     }
+    
+
+    
+    
 
     @Test
     void testCalculateNifLetter_InvalidInput() {

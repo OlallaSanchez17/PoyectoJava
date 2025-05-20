@@ -36,4 +36,14 @@ public class DataValidation {
         public static final String SQL_DATABASE = "SQL - Database";
         public static final String JPA_DATABASE = "JPA - Database";
     }
+    
+    public static boolean isNumberPostal(char c) {
+        return (48 <= c && c <= 57);
+    }
+    
+    public static boolean validatePostalCode(String codigo) {
+        String postalCodeRegex = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
+        return codigo != null && codigo.matches(postalCodeRegex);
+    }
+
 }
