@@ -527,19 +527,22 @@ public class ControllerImplementation implements IController, ActionListener {
      * This function deletes all the people registered. If there is any access
      * problem with the storage device, the program stops.
      */
-    @Override
-    public void deleteAll() {
-        try {
-            dao.deleteAll();
-        } catch (Exception ex) {
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+@Override
+public void deleteAll() {
+    try {
+        dao.deleteAll();
+        JOptionPane.showMessageDialog(menu, "All persons have been deleted successfully", 
+            "Delete All - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception ex) {
+        if (ex instanceof FileNotFoundException || ex instanceof IOException
+                || ex instanceof ParseException || ex instanceof ClassNotFoundException
+                || ex instanceof SQLException || ex instanceof PersistenceException) {
+            JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", 
+                "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
+}
 }
     
     
