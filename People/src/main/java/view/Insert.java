@@ -305,6 +305,9 @@ public class Insert extends javax.swing.JDialog {
             }
         });
         postalCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                postalCodeKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 postalCodeKeyReleased(evt);
             }
@@ -387,10 +390,10 @@ public class Insert extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
-        nif.setText("");
         phone.setEditable(true);
-        phone.setText("");
+        nif.setText("");
         name.setText("");
+        phone.setText("");
         postalCode.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
@@ -465,9 +468,10 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_postalCodeKeyReleased
 
     private void postalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyTyped
-        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        if (phone.getText().length() == 9) {
             evt.consume();
+            phone.setEditable(false);
+            showInsert();
         }
     }//GEN-LAST:event_postalCodeKeyTyped
 
@@ -508,6 +512,14 @@ public class Insert extends javax.swing.JDialog {
             showInsert();
         }
     }//GEN-LAST:event_phoneKeyPressed
+
+    private void postalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyPressed
+        if (phone.getText().length() == 9) {
+            evt.consume();
+            phone.setEditable(false);
+            showInsert();
+        }
+    }//GEN-LAST:event_postalCodeKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton a;
