@@ -468,9 +468,9 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_postalCodeKeyReleased
 
     private void postalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyTyped
-        if (phone.getText().length() == 9) {
+        if (postalCode.getText().length() == 9) {
             evt.consume();
-            phone.setEditable(false);
+            postalCode.setEditable(false);
             showInsert();
         }
     }//GEN-LAST:event_postalCodeKeyTyped
@@ -514,9 +514,9 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_phoneKeyPressed
 
     private void postalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyPressed
-        if (phone.getText().length() == 9) {
+        if (postalCode.getText().length() == 9) {
             evt.consume();
-            phone.setEditable(false);
+            postalCode.setEditable(false);
             showInsert();
         }
     }//GEN-LAST:event_postalCodeKeyPressed
