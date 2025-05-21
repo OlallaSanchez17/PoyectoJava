@@ -223,6 +223,7 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getDelete().addActionListener(this);
         menu.getReadAll().addActionListener(this);
         menu.getDeleteAll().addActionListener(this);
+        menu.GetCount().setText(" REGISTER USERS:" + String.valueOf(readAll().stream().count())) ;
     }
 
     private void handleInsertAction() {
@@ -241,6 +242,8 @@ public class ControllerImplementation implements IController, ActionListener {
         }
         insert(p);
         insert.getReset().doClick();
+        
+    menu.GetCount().setText(" RegisterUsers:" + String.valueOf(readAll().stream().count())) ; 
     }
 
     private void handleReadAction() {
@@ -283,6 +286,8 @@ public class ControllerImplementation implements IController, ActionListener {
             Person p = new Person(delete.getNif().getText());
             delete(p);
             delete.getReset().doClick();
+            
+            menu.GetCount().setText(" RegisterUsers:" + String.valueOf(readAll().stream().count())) ; 
         }
     }
 
@@ -381,6 +386,7 @@ public class ControllerImplementation implements IController, ActionListener {
         if (answer == 0) {
             deleteAll();
         }
+        menu.GetCount().setText(" RegisterUsers:" + String.valueOf(readAll().stream().count())) ; 
     }
 
     /**
@@ -545,5 +551,6 @@ public void deleteAll() {
 }
 }
     
+
     
     
