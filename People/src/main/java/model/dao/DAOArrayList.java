@@ -40,9 +40,12 @@ public class DAOArrayList implements IDAO{
         people.set(people.indexOf(p), p);
     }
     
+    
+    
     @Override
     public ArrayList<Person> readAll(){
         return people;
     }
+
    
 }
