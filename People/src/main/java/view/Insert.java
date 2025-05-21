@@ -388,6 +388,8 @@ public class Insert extends javax.swing.JDialog {
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
         nif.setText("");
+        phone.setEditable(true);
+        phone.setText("");
         name.setText("");
         postalCode.setText("");
         photo.setIcon(null);
