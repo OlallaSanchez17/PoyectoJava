@@ -354,6 +354,9 @@ public class Insert extends javax.swing.JDialog {
             }
         });
         phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phoneKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 phoneKeyReleased(evt);
             }
@@ -479,7 +482,11 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_phoneKeyReleased
 
     private void phoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyTyped
-        // TODO add your handling code here:
+        if (phone.getText().length() == 9) {
+            evt.consume();
+            phone.setEditable(false);
+            showInsert();
+        }
     }//GEN-LAST:event_phoneKeyTyped
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
@@ -491,6 +498,14 @@ public class Insert extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Not valid postal code.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_postalCodeFocusLost
+
+    private void phoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyPressed
+        if (phone.getText().length() == 9) {
+            evt.consume();
+            phone.setEditable(false);
+            showInsert();
+        }
+    }//GEN-LAST:event_phoneKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton a;
