@@ -22,16 +22,13 @@ public class Person implements Serializable{
     private String name;
     private String phone;
     private String postalCode;
+    private String email;
     private Date dateOfBirth;
     @Transient
     private ImageIcon photo;
     @Lob
     private byte[] photoOnlyJPA;
-
-    public Person(){
-        
-    }
-    
+   
     /**
      * Constructor to validate new person. Two persons cannot have the same NIF
      * @param nif 
@@ -45,10 +42,12 @@ public class Person implements Serializable{
      * @author Fran Perez
      * @version 1.0
      */
-    public Person(String nif, String name, String phone) {
+    public Person(String nif, String name, String phone,String postalCode,String email) {
         this.nif = nif;
         this.name = name;
-        this.phone = phone;        
+        this.phone = phone;
+        this.postalCode=postalCode;
+        this.email = email;
     }
 
     /**
@@ -60,11 +59,12 @@ public class Person implements Serializable{
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String nif, String name, String phone, String postalCode, Date dateOfBirth, ImageIcon photo) {
+    public Person(String nif, String name, String phone, String postalCode, String email,Date dateOfBirth, ImageIcon photo) {
         this.nif = nif;
         this.name = name;      
         this.phone = phone;
         this.postalCode = postalCode;
+        this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -100,6 +100,14 @@ public class Person implements Serializable{
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public ImageIcon getPhoto() {
@@ -169,7 +177,7 @@ public class Person implements Serializable{
      */
     @Override
     public String toString() {
-        return "Person {" + "Name = " + name + ", NIF = " + nif + ", postalCode = " + postalCode
+        return "Person {" + "Name = " + name + ", NIF = " + nif + " ,Phone"+phone + ", postalCode = " + postalCode + ", email = " + email
                 + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo!=null) + "}";
     }
 
