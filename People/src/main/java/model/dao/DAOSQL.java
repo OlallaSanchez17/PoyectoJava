@@ -33,8 +33,8 @@ public class DAOSQL implements IDAO {
 
     private final String SQL_SELECT_ALL = "SELECT * FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + ";";
     private final String SQL_SELECT = "SELECT * FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " WHERE (nif = ?);";
-    private final String SQL_INSERT = "INSERT INTO " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " (nif, name, phone, dateOfBirth, photo) VALUES (?,?,?,?,?);";
-    private final String SQL_UPDATE = "UPDATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " SET name = ?, phone = ?, dateOfBirth = ?, photo = ? WHERE (nif = ?);";
+    private final String SQL_INSERT = "INSERT INTO " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " (nif, name, phone, postalCode, email, dateOfBirth, photo) VALUES (?,?,?,?,?,?,?);";
+    private final String SQL_UPDATE = "UPDATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " SET name = ?, phone = ?, postalCode = ?, email = ?, dateOfBirth = ?, photo = ? WHERE (nif = ?);";
     private final String SQL_DELETE = "DELETE FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " WHERE (nif = ";
     private final String SQL_DELETE_ALL = "TRUNCATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE();
 
@@ -63,7 +63,8 @@ public class DAOSQL implements IDAO {
             String name = rs.getString("name");
             String phone = rs.getString("phone");
             String postalCode = rs.getString("postalCode");
-            pReturn = new Person(name, nif, phone);
+            String email = rs.getString("email");
+            pReturn = new Person(name, nif, phone,postalCode,email);
             Date date = rs.getDate("dateOfBirth");
             if (date != null) {
                 pReturn.setDateOfBirth(date);
@@ -93,12 +94,13 @@ public class DAOSQL implements IDAO {
             String name = rs.getString("name");
             String phone = rs.getString("phone");
             String postalCode = rs.getString("postalCode");
+            String email = rs.getString("email");
             Date date = rs.getDate("dateOfBirth");
             String photo = rs.getString("photo");
             if (photo != null) {
-                people.add(new Person(nif, name, phone, postalCode,  date, new ImageIcon(photo)));
+                people.add(new Person(nif, name, phone, postalCode, email, date, new ImageIcon(photo)));
             } else {
-                people.add(new Person(nif, name, phone, postalCode, date, null));
+                people.add(new Person(nif, name, phone, postalCode, email,  date, null));
             }
         }
         rs.close();
@@ -131,6 +133,8 @@ public class DAOSQL implements IDAO {
         instruction.setString(1, p.getNif());
         instruction.setString(2, p.getName());
         instruction.setString(3, p.getPhone());
+        instruction.setString(6, p.getPostalCode());
+        instruction.setString(7, p.getEmail());
         if (p.getDateOfBirth() != null) {
             instruction.setDate(4, new java.sql.Date((p.getDateOfBirth()).getTime()));
         } else {

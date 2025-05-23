@@ -55,7 +55,7 @@ public class DAOFile implements IDAO {
                     photo = new ImageIcon(data[4]);
                 }
                 String postalCode = data.length > 4 ? data[4] : "";
-                personToRead = new Person(postalCode, data[0], data[1], data[2],date, photo);
+                personToRead = new Person( data[0], data[1], data[2],data[3],data[4],date, photo);
                 break;
             }
             line = br.readLine();
@@ -85,7 +85,7 @@ public class DAOFile implements IDAO {
                 photo = new ImageIcon(data[4]);
             }
             String postalCode = data.length > 4 ? data[4] : "";
-            people.add(new Person(postalCode, data[0], data[1], data[2], date, photo));
+            people.add(new Person( data[0], data[1], data[2],data[3],data[4], date, photo));
             line = br.readLine();
         }
         br.close();

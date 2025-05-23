@@ -190,6 +190,7 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "name varchar(50), "
                         + "phone varchar(50), "
                         + "postalCode varchar(9),"
+                        + "email varchar(50),"
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -234,16 +235,22 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNif().getText(), insert.getNam().getText(), insert.getPhone().getText());
+        Person p = new Person(insert.getNif().getText(), insert.getNam().getText(), insert.getPhone().getText(),insert.getPostalCode().getText(),insert.getEmail().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
-        if (insert.getPostalCode() != null) {
-            p.setPostalCode(insert.getPostalCode().getText());
-        }
+        
+    if (!insert.isValidEmail(insert.getEmail().getText())) {
+        JOptionPane.showMessageDialog(insert, 
+            "Formato de email incorrecto. Ejemplo: usuario@dominio.com", 
+            "Error en email", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
         insert(p);
         insert.getReset().doClick();
         
@@ -263,6 +270,7 @@ public class ControllerImplementation implements IController, ActionListener {
             read.getNam().setText(pNew.getName());
             read.getPhone().setText(pNew.getPhone());
             read.getPostalCode().setText(pNew.getPostalCode());
+            read.getEmail().setText(pNew.getEmail());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -310,12 +318,15 @@ public class ControllerImplementation implements IController, ActionListener {
             if (pNew != null) {
                 update.getNam().setEnabled(true);
                 update.getPhone().setEnabled(true);
+                update.getEmail().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
                 update.getPhone().setText(pNew.getPhone());
+                update.getEmail().setText(pNew.getEmail());
                 update.getPostalCode().setText(pNew.getPostalCode());
+                
                
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
@@ -337,8 +348,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNif().getText(), update.getNam().getText(), update.getPhone().getText());
-                p.setPostalCode(update.getPostalCode().getText());
+            Person p = new Person(update.getNif().getText(), update.getNam().getText(), update.getPhone().getText(),update.getPostalCode().getText(), update.getEmail().getText());
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
@@ -379,6 +389,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 }
                 
                  model.setValueAt(s.get(i).getPostalCode(), i, 5);
+                 model.setValueAt(s.get(i).getEmail(), i, 6);
             }
             readAll.setVisible(true);
         }
@@ -548,19 +559,22 @@ public class ControllerImplementation implements IController, ActionListener {
      * This function deletes all the people registered. If there is any access
      * problem with the storage device, the program stops.
      */
-    @Override
-    public void deleteAll() {
-        try {
-            dao.deleteAll();
-        } catch (Exception ex) {
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+@Override
+public void deleteAll() {
+    try {
+        dao.deleteAll();
+        JOptionPane.showMessageDialog(menu, "All the people have been deleted.", 
+            "Delete All - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception ex) {
+        if (ex instanceof FileNotFoundException || ex instanceof IOException
+                || ex instanceof ParseException || ex instanceof ClassNotFoundException
+                || ex instanceof SQLException || ex instanceof PersistenceException) {
+            JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", 
+                "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
+}
 }
     
 
