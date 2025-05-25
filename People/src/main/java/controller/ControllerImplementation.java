@@ -36,8 +36,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.dao.DAOlogin;
+import model.entity.user;
 import org.jdatepicker.DateModel;
 import utils.DataValidation.StorageConstants;
+import view.Login;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -51,7 +54,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     //Instance variables used so that both the visual and model parts can be 
     //accessed from the Controller.
-    private final DataStorageSelection dSS;
+    private DataStorageSelection dSS;
     private IDAO dao;
     private Menu menu;
     private Insert insert;
@@ -59,15 +62,18 @@ public class ControllerImplementation implements IController, ActionListener {
     private Delete delete;
     private Update update;
     private ReadAll readAll;
+    private Login login;
+    private DAOlogin daologin;
 
     /**
      * This constructor allows the controller to know which data storage option
      * the user has chosen.Schedule an event to deploy when the user has made
      * the selection.
      *
-     * @param dSS
+     * @param 
      */
-    public ControllerImplementation(DataStorageSelection dSS) {
+    
+        public ControllerImplementation(DataStorageSelection dSS) {
         this.dSS = dSS;
         ((JButton) (dSS.getAccept()[0])).addActionListener(this);
     }
@@ -78,7 +84,7 @@ public class ControllerImplementation implements IController, ActionListener {
      */
     @Override
     public void start() {
-        dSS.setVisible(true);
+       setupLogin();
     }
 
     /**
@@ -89,8 +95,11 @@ public class ControllerImplementation implements IController, ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == dSS.getAccept()[0]) {
+        if (e.getSource() == login.getJTlogin()) {
+            handleLogin();
+        }else if (e.getSource() == dSS.getAccept()[0]) {
             handleDataStorageSelection();
+            
         } else if (e.getSource() == menu.getInsert()) {
             handleInsertAction();
         } else if (insert != null && e.getSource() == insert.getInsert()) {
@@ -113,6 +122,7 @@ public class ControllerImplementation implements IController, ActionListener {
             handleReadAll();
         } else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
+        
         }
     }
 
@@ -226,6 +236,45 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getDeleteAll().addActionListener(this);
         menu.GetCount().setText(" REGISTER USERS:" + String.valueOf(readAll().stream().count())) ;
     }
+    
+    private void setupLogin() {
+        login = new Login();
+        login.setVisible(true);
+        login.getJTlogin().addActionListener(this);
+        login.getjTPassword().addActionListener(this);
+        login.getjTUser().addActionListener(this);
+        
+}
+    
+    
+    
+    private void setupdSS(){
+        dSS = new DataStorageSelection();
+        dSS.setVisible(true);
+        ((JButton) (dSS.getAccept()[0])).addActionListener(this);
+    }
+    
+   private void handleLogin() {
+  
+      String user = login.getjTUser().getText();
+      String psswd = login.getjTPassword().getText();
+      
+      try {          daologin = new DAOlogin(); 
+        user u = daologin.readLogin(user, psswd); 
+        if( u == null)  {
+           JOptionPane.showMessageDialog(login, "no se puede iniciar sesion", "login", JOptionPane.INFORMATION_MESSAGE);
+     }else{ 
+            login.dispose();
+            setupdSS();        }
+            
+
+       } catch(SQLException Ex) { 
+           System.out.println(Ex.getMessage());
+       }
+    }
+    
+    
+    
 
     private void handleInsertAction() {
         insert = new Insert(menu, true);
@@ -561,6 +610,8 @@ public class ControllerImplementation implements IController, ActionListener {
             }
         }
     }
+
+   
 }
     
 

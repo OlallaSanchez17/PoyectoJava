@@ -2,7 +2,10 @@ package start;
 
 import controller.ControllerImplementation;
 import controller.IController;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 import view.DataStorageSelection;
+import view.Login;
 
 /**
  * This class contains the main method, the entry point to the application.
@@ -21,8 +24,11 @@ public class Start {
      * @version 1.1.0
      */
     public static void main(String[] args) {
-        DataStorageSelection dSS = new DataStorageSelection();      
-        IController cont = new ControllerImplementation(dSS);
-        cont.start();     
+        DataStorageSelection dSS = new DataStorageSelection();
+       IController cont = new ControllerImplementation(dSS);
+        cont.start();    
+        
+        
+           
      }
 }

@@ -191,5 +191,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton readAll;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
+
+    public Object getLogin() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+}
 }
 
